@@ -1,0 +1,81 @@
+.recent-notice-list{
+    list-style: none;
+    margin: 5px 0;
+    padding: 5px;
+    border-bottom: 1px solid #e6e1e1;
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.notice-link{
+
+}
+.notice-link i{
+    color: #2b9b04;
+}
+
+.btn-general{
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 28px;
+    text-transform: uppercase;
+    margin: 0 6px;
+    padding: 6px 25px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+
+
+}
+.btn-general{
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 28px;
+    text-transform: uppercase;
+    margin: 0 6px;
+    padding: 6px 25px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+
+
+}
+.btn-home{
+
+    color: #FFF;
+    border: 1px solid #fff;
+    margin-top: 10px;
+    background-color: #51be78;
+}
+
+.btn-home:hover, .btn-home:focus {
+    color:#FFFFFF ;
+    background:#5fad56;
+    border: 1px solid#5fad56;
+}
+
+.btn-home:hover, .btn-home:focus {
+    color:#FFFFFF ;
+    background:#5fad56;
+    border: 1px solid#5fad56;
+}
+.notice-pdf{
+    width: 100%;
+    height: 100%;
+}
+.notice-details{
+    width: 100%;
+    height: 1058px;
+}
+.site-section {
+    padding: 5em 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.recent-header{
+    background: #5E7391;
+    color: #fff;
+    padding: 13px 20px;
+}
+.dept_image{
+    width: 100%;
+    height: 214px;
+}
+

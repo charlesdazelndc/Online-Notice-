@@ -53,7 +53,7 @@
           <div class="col-lg-6 d-none d-lg-block">
             <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a>
             <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 10 20 123 456</a>
-            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@mydomain.com</a>
+            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span>online notice</a>
           </div>
           <div class="col-lg-6 text-right">
               <a href="{{route('register')}}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>

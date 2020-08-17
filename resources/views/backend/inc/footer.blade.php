@@ -11,7 +11,7 @@
 {{--            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/--}}
 {{--            Licensing information: https://templatemag.com/license/--}}
 {{--          -->--}}
-{{--          Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>--}}
+{{--          charlesw dazel by <a href=""></a>--}}
 {{--        </div>--}}
         <a href="inbox.html#" class="go-top">
           <i class="fa fa-angle-up"></i>

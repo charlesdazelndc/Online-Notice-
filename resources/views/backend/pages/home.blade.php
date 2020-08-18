@@ -17,11 +17,7 @@
                         </div>
                     @endif
 
-                    @if(session()->has('message'))
-                        <div class="alert alert-{{session('type')}}">
-                            {{session('message')}}
-                        </div>
-                    @endif
+
                 </div>
             </div>
           <div class="row" style="margin-top: 10px;">
@@ -30,11 +26,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="text-center">
-                    @if(session()->has('message'))
-                        <div class="alert alert-{{session('type')}}">
-                            {{session('message')}}
-                        </div>
-                    @endif
+
                 </div>
             </div>
             <div class="col-sm-4 text-right">

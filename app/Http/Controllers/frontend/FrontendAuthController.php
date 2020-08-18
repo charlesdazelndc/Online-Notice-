@@ -78,8 +78,6 @@ class FrontendAuthController extends Controller
 
 
                 if($user->role_id==3){
-                    session()->flash('type', 'success');
-                    session()->flash('message', 'we are sucessfully login');
                     return redirect()->route('deshboard');
                 }
                 // session()->flash('type', 'success');

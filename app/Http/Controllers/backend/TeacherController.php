@@ -14,6 +14,7 @@ use App\CourseName;
 use App\Department;
 use App\AcademicSession;
 use App\Faculty;
+use App\Role;
 
 
 class TeacherController extends Controller
@@ -38,6 +39,7 @@ class TeacherController extends Controller
      $data['departments'] = Department::all();
      $data['faculties'] = Faculty::all();
      $data['notice_types'] = NoticeType::all();
+     $data['roles'] = Role::all();
 //     dd( $data['notice']);
      return view('backend.pages.teacher_deshboard',$data);
 

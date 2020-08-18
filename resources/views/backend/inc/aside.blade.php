@@ -3,7 +3,14 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li class="mt">
-                <a href="{{route('UserList')}}" class="active_nav"><i class="fa fa-user"></i><span>Users</span></a>
+                <a href="" class="active_nav"><i class="fa fa-user"></i><span>Users</span></a>
+                <ul class="sub">
+                    <li><a href="{{route('UserList')}}">All Users</a></li>
+                    @foreach($roles as $role)
+                    <li><a href="{{route('admin-list',$role->id)}}">{{$role->role_name}}</a></li>
+                    @endforeach
+                    
+                </ul>
             </li>
           <li class="mt">
             <a href="{{route('deshboard')}}" class="active_nav"><i class="fa fa-dashboard "></i><span>Notices</span></a>

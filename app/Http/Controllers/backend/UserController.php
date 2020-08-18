@@ -46,6 +46,29 @@ class UserController extends Controller
    }
 
 
+   public function AdminUser($id){
+
+      $data = array();
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['roles'] = Role::all();
+
+       $data['users'] =DB::table('users')
+           ->join('course_names', 'users.course_name_id', '=', 'course_names.id')
+           ->join('academic_sessions','users.academic_session_id','=', 'academic_sessions.id')
+           ->join('departments', 'users.department_id','=','departments.id')
+           ->join('faculties',  'users.faculty_id','=','faculties.id' )
+           ->join('roles',  'users.role_id','=','roles.id')
+           ->select('users.*','course_names.course_name','roles.role_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+           ->where('users.role_id','=',$id)
+           ->get();
+
+      return view('backend.pages.admin-list',$data);
+   }
+
+
    public function UserProfileEdit($id){
        $data['user'] =DB::table('users')
            ->join('course_names', 'users.course_name_id', '=', 'course_names.id')

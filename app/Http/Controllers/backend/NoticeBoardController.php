@@ -17,6 +17,8 @@ use App\CourseName;
 use App\Department;
 use App\AcademicSession;
 use App\Faculty;
+use App\Role;
+
 
 
 class NoticeBoardController extends Controller

@@ -27,6 +27,8 @@ Route::group(['namespace'=>'frontend'],function(){
 Route::group(['prefix'=>'admin','middleware'=>'AdminCheck','namespace'=>'backend'],function(){
 Route::get('/desh_board','HomeController@ViewHomePage')->name('deshboard');
 Route::get('/users','UserController@UserList')->name('UserList');
+Route::get('/admin-users/{id}','UserController@AdminUser')->name('admin-list');
+
 Route::get('/user-profile-edit/{id}','UserController@UserProfileEdit')->name('UserProfileEdit');
 Route::post('/user-profile-update/{id}','UserController@UserProfileUpdate')->name('UserProfileUpdate');
 Route::get('/user-profile-view/{id}','UserController@UserProfileView')->name('UserProfileView');

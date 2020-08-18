@@ -22,6 +22,8 @@ use App\AcademicSession;
 use Validator;
 use Hash;
 use Auth;
+use App\Role;
+
 
 class HomeController extends Controller
 {
@@ -38,6 +40,7 @@ class HomeController extends Controller
        $data['notice_types'] = NoticeType::all();
 
        $data['about'] = About::first();
+       $data['roles'] = Role::all();
 //       dd($data['about']->about_description);
 
 

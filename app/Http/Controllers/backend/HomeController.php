@@ -31,31 +31,18 @@ class HomeController extends Controller
 
 //       $id =auth()->user()->id;
 //       dd($id);
-      $data = array();
+       $data = array();
 
        $data['academic_sessions'] = AcademicSession::all();
        $data['courses']  =CourseName::all();
        $data['departments'] = Department::all();
        $data['faculties'] = Faculty::all();
        $data['notice_types'] = NoticeType::all();
+       $data['academic_notices'] = AcademicNotice::with('CourseName','AcademicSession','Faculty','Department','User')
+                                    ->select('academic_notices.*','course_name_id','academic_session_id','department_id','faculty_id','notice_type_id','user_id')
+                                    ->orderBy('academic_notices.id','DESC')
+                                    ->paginate(10);
 
-       $data['about'] = About::first();
-       $data['roles'] = Role::all();
-//       dd($data['about']->about_description);
-
-
-
-
-       $data['academic_notices'] =DB::table('academic_notices')
-           ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
-           ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
-           ->join('departments', 'academic_notices.department_id','=','departments.id')
-           ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
-           ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
-           ->select('academic_notices.*','course_names.course_name','notice_types.notice_type_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
-//           ->where('academic_notices.status',1)
-           ->orderBy('academic_notices.id','DESC')
-           ->paginate(10);
 
    	return view('backend.pages.home',$data);
 

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('role_id')->default(2);
             $table->string('telephone')->unique();
             $table->bigInteger('faculty_id');
-            $table->bigInteger('academic_session_id');
+            $table->bigInteger('academic_session_id')->nullable();
             $table->bigInteger('course_name_id');
             $table->bigInteger('department_id');
             $table->string('profile_image');

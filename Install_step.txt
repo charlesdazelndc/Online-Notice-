@@ -1,0 +1,6 @@
+1.Extract this file.
+2.download xamp serve.
+3.put this file htdocs folder.
+4.after that import database from C:\xampp\htdocs\noticeboard\databasefile
+5.admin email:admin@gmail.com
+6.admin password:123456

@@ -18,9 +18,28 @@ class User extends Authenticatable
      */
     public $timestamps = true;
     protected $fillable = [
-        'full_name', 'email', 'password','role_id','academic_session_id','course_name_id','faculty_id','department_id','profile_image','telephone','email_verified_at',  'status','email_verified','email_verified_token',
+        'full_name', 'email', 'password','role_id','whereHas','course_name_id','faculty_id','department_id','profile_image','telephone','email_verified_at',  'status','email_verified','email_verified_token',
     ];
 
+
+
+    public function CourseName(){
+        return $this->belongsTo(CourseName::class);
+    }
+    public function AcademicSession(){
+        return $this->belongsTo(AcademicSession::class);
+    }
+
+    public function Faculty(){
+        return $this->belongsTo(Faculty::class);
+    }
+    public function Department(){
+    return $this->belongsTo(Department::class);
+    }
+
+    public function Role(){
+        return $this->belongsTo(Role::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -46,9 +46,9 @@
                             <table id="mytable" class="table table-bordered table-striped">
                                 <thead>
                                 <th>Si</th>
+                                <th>Posted By</th>
                                 <th>Title</th>
                                 <th>Description</th>
-
                                 <th>Session</th>
                                 <th>Department</th>
                                 <th>Course Type</th>
@@ -60,9 +60,7 @@
                                 <th>Notice File</th>
                                 <th>Status</th>
                                 <th>Actions</th>
-
-
-                                </thead>
+                            </thead>
 
                                 <tbody>
                                   @if(isset($academic_notices))
@@ -72,14 +70,16 @@
                                       @foreach($academic_notices as $academic_notice)
                                     <tr>
                                         <td>{{$i++}}</td>
+                                        <td>{{$academic_notice->User->full_name}}</td>
                                         <td>{{$academic_notice->title}}</td>
+                                        
                                         <td>{{$academic_notice->description}}</td>
 
                                         <td>{{$academic_notice->academic_session}}</td>
-                                        <td>{{$academic_notice->department_name}}</td>
-                                        <td>{{$academic_notice->course_name}}</td>
-                                        <td>{{$academic_notice->faculty_name}}</td>
-                                        <td>{{$academic_notice->notice_type_name}}</td>
+                                        <td>{{$academic_notice->Department->name}}</td>
+                                        <td>{{$academic_notice->CourseName->course_name}}</td>
+                                        <td>{{$academic_notice->Faculty->name}}</td>
+                                        <td>{{$academic_notice->NoticeType->notice_type_name}}</td>
                                         <td>{{$academic_notice->notice_date}}</td>
                                         <td>{{$academic_notice->start_date}}</td>
                                         <td>{{$academic_notice->end_date}}</td>

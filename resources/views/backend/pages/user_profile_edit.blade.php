@@ -52,7 +52,7 @@
                                         <label for="type">type</label>
                                         <select type="text" id="role_id" name="role_id" value="{{old('role_id')}}" class="form-control form-control-lg">
                                             @if(isset($roles))
-                                                <option value="{{$user->role_id}}">{{$user->role_name}}</option>
+                                                <option value="{{$user->Role->id}}">{{$user->Role->role_name}}</option>
                                                 @foreach($roles as $role)
                                                     <option value="{{$role->id}}">{{$role->role_name}}</option>
                                                 @endforeach
@@ -64,7 +64,7 @@
                                     <label for="academic_session_id">Department</label>
                                     <select class="form-control" name="department_id" id="academic_session_id" >
                                         @if(isset($departments))
-                                            <option value="{{$user->department_id}}">{{$user->department_name}}</option>
+                                            <option value="{{$user->Department->id}}">{{$user->Department->name}}</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->name}}</option>
                                             @endforeach
@@ -72,27 +72,27 @@
 
                                     </select>
                                 </div>
+                                @if(!empty($user->AcademicSession->academic_session))
                                 <div class="col-md-12 form-group">
                                     <label for="academic_session_id">session</label>
                                     <select class="form-control" name="academic_session_id" id="academic_session_id" >
                                         @if(isset($academic_sessions))
-                                            <option value="{{$user->academic_session_id}}">{{$user->academic_session}}</option>
-                                            @foreach($academic_sessions as $academic_session)
-
-                                                <option value="{{$academic_session->id}}">{{$academic_session->academic_session}}</option>
-                                            @endforeach
+                                        <option value="{{$user->AcademicSession->id}}">{{$user->AcademicSession->academic_session}}</option>
+                                        @foreach($academic_sessions as $academic_session)
+                                        <option value="{{$academic_session->id}}">{{$academic_session->academic_session}}</option>
+                                        @endforeach
                                         @endif
 
                                     </select>
                                 </div>
 
-
+                                @endif
 
                                 <div class="col-md-12 form-group">
                                     <label for="course_name_id">Course Type</label>
                                     <select class="form-control" name="course_name_id" id="course_name_id" >
                                         @if(isset($courses))
-                                            <option value="{{$user->course_name_id}}">{{$user->course_name}}</option>
+                                            <option value="{{$user->course_name_id}}">{{$user->CourseName->course_name}}</option>
                                             @foreach($courses as $course)
 
                                                 <option value="{{$course->id}}">{{$course->course_name}}</option>
@@ -106,7 +106,7 @@
                                     <label for="faculty_id">Faculty</label>
                                     <select class="form-control" name="faculty_id" id="faculty_id" >
                                         @if(isset($faculties))
-                                            <option value="{{$user->faculty_id}}">{{$user->faculty_name}}</option>
+                                            <option value="{{$user->faculty_id}}">{{$user->Faculty->name}}</option>
                                             @foreach($faculties as $faculty)
                                                 <option value="{{$faculty->id}}">{{$faculty->name}}</option>
                                             @endforeach

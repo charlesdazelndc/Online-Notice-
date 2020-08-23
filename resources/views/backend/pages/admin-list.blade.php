@@ -34,18 +34,17 @@
                         <div class="table-responsive">
                             <table id="mytable" class="table table-bordered table-striped">
                                 <thead>
-                                <th>Si</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Telephone</th>
-                                <th>Department</th>
-                                <th>Course Type</th>
-                                <th>Faculty</th>
-                                <th>Session</th>
-                                <th>Role</th>
-                                <th>Image</th>
-
-                                <th>Action</th>
+                                    <th>Si</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Telephone</th>
+                                    <th>Department</th>
+                                    <th>Course Type</th>
+                                    <th>Faculty</th>
+                                    <th>Session </th>
+                                    <th>User Type</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
 
 
 
@@ -60,15 +59,15 @@
                                       @endphp
                                       @foreach($users as $user)
                                     <tr>
-                                        <td>{{$i++}}</td>
+                                       <td>{{$i++}}</td>
                                         <td>{{$user->full_name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->telephone}}</td>
-                                        <td>{{$user->department_name}}</td>
-                                        <td>{{$user->academic_session}}</td>
-                                        <td>{{$user->course_name}}</td>
-                                        <td>{{$user->faculty_name}}</td>
-                                        <td>{{$user->role_name}}</td>
+                                        <td>{{$user->Department->name}}</td>
+                                        <td>{{$user->CourseName->course_name}}</td>
+                                        <td>{{$user->Faculty->name}}</td>
+                                        <td>{{$user->AcademicSession?$user->AcademicSession->academic_session:" "}}</td>
+                                        <td>{{$user->Role->role_name}}</td>
 
                                         <td><img src="{{ url('/uploads/' . $user->profile_image) }}" alt="" width="50px" height="50px"></td>
 

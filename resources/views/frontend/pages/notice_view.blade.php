@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row align-items-end">
             <div class="col-lg-7">
-              <h2 class="mb-0">{{$notice->title}}</h2>
+              <h2 class="mb-0 upper-title">{{$notice->title}}</h2>
               <p>Notice Date : {{\Carbon\Carbon::parse($notice->notice_date)->format('d-M-Y')}}</p>
             </div>
           </div>
@@ -25,9 +25,49 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="notice-details">
-                        <embed  src="{{url('/uploads/'.$notice->notice_image)}}" width="100%" height="100%" class="notice-pdf">
+
+                    <h1 class="notice-title">{{$notice->title}}</h1>
+                     <div class="department-name">   
+                          <h4> <b>Faculty Name     :</b> {{$notice->faculty_name}}</h4>
                     </div>
+
+
+                    <div class="department-name">   
+                          <h4><b>Department Name   :</b>{{$notice->course_name}}</h4>
+                    </div>
+
+                    <div class="department-name">   
+                          <h4> <b> Department Name : </b>{{$notice->department_name}}</h4>
+                    </div>
+
+                    <div class="department-name session-class">   
+                          <h4><b> Session          :</b>{{$notice->academic_session}}</h4>
+                    </div> 
+                    
+                     <div class="notice-description">
+                            <h4>Notice Description: </h4>   
+                              <p>{{$notice->description}}</p>
+                     </div>
+                    
+                             <?php
+                             $temp = explode( '.',$notice->notice_image );
+                             end($temp);  
+                             $filetype = current($temp);
+                           if($filetype=="pdf"){
+                            ?>
+
+                             <div class="notice-details">
+                                    <embed  src="{{url('/uploads/'.$notice->notice_image)}}" width="100%" class="notice-pdf ">
+                             </div>
+                            <?php }else { ?>
+                           <embed  src="{{url('/uploads/'.$notice->notice_image)}}" width="100%" class="img-fluid">
+                            <?php } ?>
+                   
+
+                     <div class="notice-date"><h4>  <b>Notice Date </b>  :{{\Carbon\Carbon::parse($notice->notice_date)->format('d-M-Y')}}</h4></div>
+                     <div class="notice-date"><h4>  <b>Start Date  </b>  : {{\Carbon\Carbon::parse($notice->notice_date)->format('d-M-Y')}}</h4></div>
+                     <div class="notice-date"><h4>  <b>End Date    </b>  :{{\Carbon\Carbon::parse($notice->notice_date)->format('d-M-Y')}}</h4></div>
+                    
                 </div>
                 <div class="col-md-4">
                     <h2 class="recent-header">Recent Notices</h2>
@@ -37,10 +77,10 @@
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Academic</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Event</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> Admission</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Admission</a>
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact " aria-selected="false">Event</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">

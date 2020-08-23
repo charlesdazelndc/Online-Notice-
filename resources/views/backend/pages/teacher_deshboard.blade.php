@@ -94,15 +94,15 @@
 
                                                 </td>
                                                 @if($academic_notice->status==1)
-                                                    <td ><a href="{{route('StatusInactive',$academic_notice->id)}}" class="btn-success" style="padding: 5px;"><i class="fa fa-check"></i></a></td>
+                                                    <td ><a href="{{route('teacher.StatusInactive',$academic_notice->id)}}" class="btn-success" style="padding: 5px;"><i class="fa fa-check"></i></a></td>
                                                 @else
-                                                    <td><a href="{{route('StatusActive',$academic_notice->id)}}" class="btn-danger" style="padding: 5px;"><i class="fa fa-times" ></i></a></td>
+                                                    <td><a href="{{route('teacher.StatusActive',$academic_notice->id)}}" class="btn-danger" style="padding: 5px;"><i class="fa fa-times" ></i></a></td>
                                                 @endif
 
                                                 <td class="action-icon">
-                                                    <a class="action-link btn-success" title="edit" href="{{route('NoticeEdit',$academic_notice->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a class="action-link btn-facebook" title="view" href="{{route('NoticeView',$academic_notice->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a class="action-link btn-danger" title="delete" href="{{route('NoticeDelete',$academic_notice->id)}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                    <a class="action-link btn-success" title="edit" href="{{route('teacher.NoticeEdit',$academic_notice->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    <a class="action-link btn-facebook" title="view" href="{{route('teacher.NoticeView',$academic_notice->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a class="action-link btn-danger" title="delete" href="{{route('teacher.NoticeDelete',$academic_notice->id)}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 
                                                 </td>
 
@@ -130,7 +130,7 @@
                             </div>
                             <div class="modal-body">
 
-                                <form action="{{route('addnotice')}}"  method="post" enctype="multipart/form-data">@csrf
+                                <form action="{{route('teacher.addnotice')}}"  method="post" enctype="multipart/form-data">@csrf
 
 
 

@@ -35,29 +35,31 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="type">type</label>
-                                        <input type="text" id="role_id" name="role_id" value=" " class="form-control form-control-lg">
+                                        <input type="text" id="role_id" name="role_id" value="{{$user->Role->role_name}}" class="form-control form-control-lg">
                                     </div>
 
                                     <div class="col-md-12 form-group">
                                     <label for="department">Department</label>
-                                        <input type="text" id="department" name="department" value="{{$user->department_name}}" class="form-control form-control-lg">
+                                        <input type="text" id="department" name="department" value="{{$user->Department->name}}" class="form-control form-control-lg">
                                 </div>
+                                 @if(!empty($user->AcademicSession->academic_session))
                                 <div class="col-md-12 form-group">
                                     <label for="academic_session_id">session</label>
-                                    <input class="form-control" value="{{$user->academic_session}}"  name="academic_session_id" id="academic_session_id" >
+                                    <input class="form-control" value="{{$user->AcademicSession->academic_session}}"  name="academic_session_id" id="academic_session_id" >
 
                                 </div>
+                                @endif
 
 
 
                                 <div class="col-md-12 form-group">
                                     <label for="course_name_id">Course Type</label>
-                                    <input class="form-control" value="{{$user->course_name}}" name="course_name_id" id="course_name_id" >
+                                    <input class="form-control" value="{{$user->CourseName->course_name}}" name="course_name_id" id="course_name_id" >
                                 </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="faculty_id">Faculty</label>
-                                    <input class="form-control" value="{{$user->faculty_name}}" name="faculty_id" id="faculty_id" >
+                                    <input class="form-control" value="{{$user->Faculty->name}}" name="faculty_id" id="faculty_id" >
                                 </div>
 
                                 <div class="col-md-12 form-group">

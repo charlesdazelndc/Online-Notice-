@@ -18,6 +18,7 @@ use Validator;
 use Hash;
 use Auth;
 
+
 class UserController extends Controller
 {
 
@@ -29,18 +30,10 @@ class UserController extends Controller
        $data['courses']  =CourseName::all();
        $data['departments'] = Department::all();
        $data['faculties'] = Faculty::all();
-       $data['roles'] = Role::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::where('id','>',1)->get();
 
-
-
-       $data['users'] =DB::table('users')
-           ->join('course_names', 'users.course_name_id', '=', 'course_names.id')
-           ->join('academic_sessions','users.academic_session_id','=', 'academic_sessions.id')
-           ->join('departments', 'users.department_id','=','departments.id')
-           ->join('faculties',  'users.faculty_id','=','faculties.id' )
-           ->join('roles',  'users.role_id','=','roles.id')
-           ->select('users.*','course_names.course_name','roles.role_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
-           ->get();
+       $data['users'] =User::with('CourseName','AcademicSession','Faculty','Department','Role')->select('users.*','course_name_id','academic_session_id','department_id','faculty_id','role_id')->get();
 //       dd($data['users']);
        return view('backend.pages.user',$data);
    }
@@ -48,42 +41,36 @@ class UserController extends Controller
 
    public function AdminUser($id){
 
-      $data = array();
-       $data['academic_sessions'] = AcademicSession::all();
-       $data['courses']  =CourseName::all();
-       $data['departments'] = Department::all();
-       $data['faculties'] = Faculty::all();
-       $data['roles'] = Role::all();
+     $data = array();
+     $data['academic_sessions'] = AcademicSession::all();
+     $data['courses']  =CourseName::all();
+     $data['departments'] = Department::all();
+     $data['faculties'] = Faculty::all();
+     $data['notice_types'] = NoticeType::all();
+     $data['roles'] = Role::all();
 
-       $data['users'] =DB::table('users')
-           ->join('course_names', 'users.course_name_id', '=', 'course_names.id')
-           ->join('academic_sessions','users.academic_session_id','=', 'academic_sessions.id')
-           ->join('departments', 'users.department_id','=','departments.id')
-           ->join('faculties',  'users.faculty_id','=','faculties.id' )
-           ->join('roles',  'users.role_id','=','roles.id')
-           ->select('users.*','course_names.course_name','roles.role_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
-           ->where('users.role_id','=',$id)
-           ->get();
+     $data['users'] = User::with('CourseName','AcademicSession','Faculty','Department','Role')
+     ->select('users.*')
+     ->where('users.role_id','=',$id)
+     ->get();
 
-      return view('backend.pages.admin-list',$data);
+     
+
+     return view('backend.pages.admin-list',$data);
    }
 
 
    public function UserProfileEdit($id){
-       $data['user'] =DB::table('users')
-           ->join('course_names', 'users.course_name_id', '=', 'course_names.id')
-           ->join('academic_sessions','users.academic_session_id','=', 'academic_sessions.id')
-           ->join('departments', 'users.department_id','=','departments.id')
-           ->join('faculties',  'users.faculty_id','=','faculties.id' )
-           ->join('roles',  'users.role_id','=','roles.id')
-           ->where('users.id',$id)
-           ->select('users.*','roles.role_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
-           ->first();
+       $data['user'] =$data['users'] = User::with('CourseName','AcademicSession','Faculty','Department','Role')
+        ->select('users.*')
+        ->where('users.id','=',$id)
+        ->first();
 
        $data['academic_sessions'] = AcademicSession::all();
        $data['courses']  =CourseName::all();
        $data['departments'] = Department::all();
        $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
        $data['roles'] = Role::all();
 
        return view('backend.pages.user_profile_edit',$data);
@@ -91,10 +78,12 @@ class UserController extends Controller
    }
 
    public function UserProfileUpdate(Request $request,$id){
+
+  
        $validator              = Validator::make($request->all(),[
            'full_name'            => 'required|string|max:255',
            'telephone'            => 'required|min:11',
-           'email'                => 'sometimes|required|string|email|max:255|unique:users,email',
+           'email'                => 'required',
            'profile_image'        => 'required|image|',
            'role_id'              => 'required',
            'department_id'        => 'required',
@@ -137,15 +126,10 @@ class UserController extends Controller
 
    }
    public  function UserProfileView($id){
-       $data['user'] =DB::table('users')
-           ->join('course_names', 'users.course_name_id', '=', 'course_names.id')
-           ->join('academic_sessions','users.academic_session_id','=', 'academic_sessions.id')
-           ->join('departments', 'users.department_id','=','departments.id')
-           ->join('faculties',  'users.faculty_id','=','faculties.id' )
-           ->join('roles',  'users.role_id','=','roles.id' )
-           ->where('users.id',$id)
-           ->select('users.*','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','roles.role_name','faculties.name as faculty_name')
-           ->first();
+       $data['user'] =$data['user'] =$data['users'] = User::with('CourseName','AcademicSession','Faculty','Department','Role')
+        ->select('users.*')
+        ->where('users.id','=',$id)
+        ->first();
        return view('backend.pages.user_profile_view',$data);
    }
 

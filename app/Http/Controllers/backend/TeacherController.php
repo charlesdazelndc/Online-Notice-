@@ -20,7 +20,15 @@ use App\Role;
 class TeacherController extends Controller
 {
  public  function  TeacherDeshBoard(){
-     $id = auth()->user()->id;
+      $id = auth()->user()->id;
+
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+
      $data['academic_notices'] =DB::table('academic_notices')
          ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
          ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
@@ -34,13 +42,7 @@ class TeacherController extends Controller
 
 
 
-     $data['academic_sessions'] = AcademicSession::all();
-     $data['courses']  =CourseName::all();
-     $data['departments'] = Department::all();
-     $data['faculties'] = Faculty::all();
-     $data['notice_types'] = NoticeType::all();
-     $data['roles'] = Role::all();
-//     dd( $data['notice']);
+      
      return view('backend.pages.teacher_deshboard',$data);
 
  }
@@ -48,10 +50,18 @@ class TeacherController extends Controller
 
     public function AddNoticeBoard(Request $request)
     {
+
+
+           $data['academic_sessions'] = AcademicSession::all();
+           $data['courses']  =CourseName::all();
+           $data['departments'] = Department::all();
+           $data['faculties'] = Faculty::all();
+           $data['notice_types'] = NoticeType::all();
+           $data['roles'] = Role::all();
 //          dd($request->all());
 
-        $user_id = auth()->user()->id;
-        $validator = Validator::make($request->all(), [
+           $user_id = auth()->user()->id;
+            $validator = Validator::make($request->all(), [
             'department_id' => 'required',
             'academic_session_id' => 'required',
             'course_name_id' => 'required',
@@ -132,15 +142,16 @@ class TeacherController extends Controller
 
             ->first();
 
-        $data['academic_sessions'] = AcademicSession::all();
-        $data['courses']  =CourseName::all();
-        $data['departments'] = Department::all();
-        $data['faculties'] = Faculty::all();
-        $data['notice_types'] = NoticeType::all();
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
 
 
 
-        return view('backend.pages.notice_edit',$data);
+        return view('backend.pages.teacher_notice_edit',$data);
 
 
     }
@@ -148,6 +159,10 @@ class TeacherController extends Controller
 
 
     public  function NoticeUpdate(Request $request,$id){
+
+
+        $user_id = auth()->user()->id;
+       
 
         $validator = Validator::make($request->all(), [
 
@@ -181,6 +196,7 @@ class TeacherController extends Controller
 
             'department_id' => $request['department_id'],
             'academic_session_id' => $request['academic_session_id'],
+            'user_id'         =>$user_id,
             'course_name_id' => $request['course_name_id'],
             'faculty_id' => $request['faculty_id'],
             'notice_type_id' => $request['notice_type_id'],
@@ -202,7 +218,7 @@ class TeacherController extends Controller
     public function StatusActive($id)
     {
         $notice = AcademicNotice::find($id);
-//       dd($notice);
+
         if ($notice->status == 0) {
             $status_active = AcademicNotice::where('id', $notice->id)->update(['status' => 1]);
         }
@@ -226,15 +242,18 @@ class TeacherController extends Controller
 
 
     public  function NoticeView($id){
+
+       
+
         $data['notice'] =DB::table('academic_notices')
-            ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
-            ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
-            ->join('departments', 'academic_notices.department_id','=','departments.id')
-            ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
-            ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
-            ->where('academic_notices.id',$id)
-            ->select('academic_notices.*','notice_types.notice_type_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
-            ->first();
+        ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
+        ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
+        ->join('departments', 'academic_notices.department_id','=','departments.id')
+        ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
+        ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
+        ->where('academic_notices.id',$id)
+        ->select('academic_notices.*','notice_types.notice_type_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+        ->first();
         return view('backend.pages.notice_view',$data);
     }
     public function NoticeDelete($id){
@@ -242,6 +261,88 @@ class TeacherController extends Controller
         return redirect()->back();
     }
 
+
+
+    public function NoticeListType($id){
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+
+        $user_id = auth()->user()->id;
+        $data['academic_notices'] =DB::table('academic_notices')
+         ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
+         ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
+         ->join('departments', 'academic_notices.department_id','=','departments.id')
+         ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
+         ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
+         ->where('academic_notices.notice_type_id',$id)
+         ->where('academic_notices.user_id',$user_id)
+         ->select('academic_notices.*','notice_types.notice_type_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+
+         ->paginate(10);
+
+         
+
+      return view('backend.pages.teacher_deshboard',$data);
+
+    }
+public function NoticeListByDepartment($id){
+    $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+
+        $user_id = auth()->user()->id;
+        $data['academic_notices'] =DB::table('academic_notices')
+         ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
+         ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
+         ->join('departments', 'academic_notices.department_id','=','departments.id')
+         ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
+         ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
+         ->where('academic_notices.department_id',$id)
+         ->where('academic_notices.user_id',$user_id)
+         ->select('academic_notices.*','notice_types.notice_type_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+
+         ->paginate(10);
+
+         
+
+      return view('backend.pages.teacher_deshboard',$data);
+
+    }
+
+
+    public function NoticeListBySession($id){
+        $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+
+        $user_id = auth()->user()->id;
+        $data['academic_notices'] =DB::table('academic_notices')
+         ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
+         ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
+         ->join('departments', 'academic_notices.department_id','=','departments.id')
+         ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
+         ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
+         ->where('academic_notices.academic_session_id',$id)
+         ->where('academic_notices.user_id',$user_id)
+         ->select('academic_notices.*','notice_types.notice_type_name','course_names.course_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+
+         ->paginate(10);
+
+         
+
+      return view('backend.pages.teacher_deshboard',$data);
+
+    }
 
 
 

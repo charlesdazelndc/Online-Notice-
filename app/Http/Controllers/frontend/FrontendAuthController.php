@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ForgetPasswordMail;
 use App\Mail\VerificationEmail;
 use App\Role;
+use App\NoticeType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -29,10 +30,18 @@ class FrontendAuthController extends Controller
 
 
       public function ShowLoginPage(){
+
+        
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
           if (auth()->check()){
               return  redirect()->route('homepage');
           }
-          return view('authview.login');
+          return view('authview.login',$data);
    }
 
 
@@ -119,7 +128,7 @@ class FrontendAuthController extends Controller
       'profile_image'        => 'required|image|',
       'role_id'              => 'required',
       'department_id'        => 'required',
-      'academic_session_id'  => 'required',
+      
       'course_name_id'       => 'required',
       'faculty_id'           => 'required'
             ]);

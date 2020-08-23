@@ -51,12 +51,13 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6 d-none d-lg-block">
-            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a>
-            <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 10 20 123 456</a>
-            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span>online notice</a>
+            <a href="#" class="small mr-3"><span ></span> </a>
+            <a href="#" class="small mr-3"><span ></span></a>
+            <a href="#" class="small mr-3"><span ></span></a>
           </div>
           <div class="col-lg-6 text-right">
               <a href="{{route('register')}}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+              
              @if((auth()->check()))
 
                   <a href="{{route('logout')}}" class="small mr-3"><span class="icon-unlock-alt"></span> Log Out</a>
@@ -85,20 +86,34 @@
                   <a href="{{route('homepage')}}" class="nav-link text-left">Home</a>
                 </li>
                 <li class="has-children">
-                  <a href="about.html" class="nav-link text-left">About Us</a>
+                  <a href="" class="nav-link text-left">Faculty</a>
                   <ul class="dropdown">
-                    <li><a href="teachers.html">Our Teachers</a></li>
-                    <li><a href="about.html">Our School</a></li>
+                     @foreach($menu_faculty as $faculty)
+                    <li class="has-children"><a href="#" class="nav-link text-left">{{$faculty->name}}</a>
+                     <ul class="dropdown">
+                    @foreach($faculty->Departments as $department)
+                    <li class=""><a href="{{route('frontend.ViewDepartment',$department->id)}}">{{$department->name}}</a></li>
+                    
+                   @endforeach
+                  </ul>
+                  </li>
+                  @endforeach
+                  </ul>
+                </li>
+
+                <li>
+                  <a href="{{route('AdmissionPage')}}" class="nav-link text-left">Admissions</a>
+                </li>
+                <li class="has-children">
+                  <a href="about.html" class="nav-link text-left">Courses</a>
+                  <ul class="dropdown">
+                    @foreach($courses as $course)
+                    <li><a href="">{{$course->course_name}}</a></li>
+                   @endforeach
                   </ul>
                 </li>
                 <li>
-                  <a href="admissions.html" class="nav-link text-left">Admissions</a>
-                </li>
-                <li>
-                  <a href="courses.html" class="nav-link text-left">Courses</a>
-                </li>
-                <li>
-                    <a href="contact.html" class="nav-link text-left">Contact</a>
+                    <a href="{{route('frontend.ViewAbout')}}" class="nav-link text-left">About Us</a>
                   </li>
               </ul>                                                                                                                                                                                                                                                                                          </ul>
             </nav>

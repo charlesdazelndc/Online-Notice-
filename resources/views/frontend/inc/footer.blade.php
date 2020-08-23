@@ -3,8 +3,7 @@
         <div class="row">
           <div class="col-lg-3">
             <p class="mb-4"><img src="{{asset('frontend')}}/images/logo.png" alt="Image" class="img-fluid"></p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae nemo minima qui dolor, iusto iure.</p>  
-            <p><a href="#">Learn More</a></p>
+           
           </div>
           <div class="col-lg-3">
             <h3 class="footer-heading"><span>Our Campus</span></h3>

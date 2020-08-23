@@ -114,6 +114,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
+                                     <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                            <label for="faculty_id">Faculty</label>
+                                            <select class="form-control" name="faculty_id" id="faculty_id" >
+                                                @if(isset($faculties))
+                                                   @foreach($faculties as $faculty)
+                                                        <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                                    @endforeach
+                                                @endif
+
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -123,6 +139,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+
 
 
 

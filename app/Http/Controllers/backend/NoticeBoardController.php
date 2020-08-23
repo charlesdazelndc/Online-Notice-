@@ -18,6 +18,10 @@ use App\Department;
 use App\AcademicSession;
 use App\Faculty;
 use App\Role;
+use App\About;
+
+
+
 
 
 
@@ -27,6 +31,9 @@ class NoticeBoardController extends Controller
 
     public function AddNoticeBoard(Request $request)
     {
+
+        
+       
 //          dd($request->all());
         $validator = Validator::make($request->all(), [
             'department_id' => 'required',
@@ -36,7 +43,7 @@ class NoticeBoardController extends Controller
             'notice_type_id' => 'required',
             'title' => 'required|string',
             'description' => 'required|string',
-             'notice_image' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
+            'notice_image' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
             'notice_date' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
@@ -61,6 +68,7 @@ class NoticeBoardController extends Controller
 
         $data = [
 
+            'user_id' => 4,
             'department_id' => $request['department_id'],
             'academic_session_id' => $request['academic_session_id'],
             'course_name_id' => $request['course_name_id'],
@@ -119,6 +127,14 @@ class NoticeBoardController extends Controller
     public function NoticeEdit($id)
     {
 
+
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+
         $data['notice'] =DB::table('academic_notices')
             ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
             ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
@@ -130,11 +146,14 @@ class NoticeBoardController extends Controller
 
             ->first();
 
-        $data['academic_sessions'] = AcademicSession::all();
-        $data['courses']  =CourseName::all();
-        $data['departments'] = Department::all();
-        $data['faculties'] = Faculty::all();
-        $data['notice_types'] = NoticeType::all();
+       
+
+       // foreach ($data['faculties'] as $faculty) {
+
+       //   foreach ($data['departments']  as $depart) {
+       //      print_r($depart);
+       //   }
+       // }
 
 
 
@@ -217,18 +236,59 @@ class NoticeBoardController extends Controller
 
 
 
+
+    public function NoticeFilter($id){
+    $data = array();
+
+      $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+//       dd($data['about']->about_description);
+
+
+
+
+       $data['academic_notices'] =DB::table('academic_notices')
+           ->join('course_names', 'academic_notices.course_name_id', '=', 'course_names.id')
+           ->join('academic_sessions','academic_notices.academic_session_id','=', 'academic_sessions.id')
+           ->join('departments', 'academic_notices.department_id','=','departments.id')
+           ->join('faculties',  'academic_notices.faculty_id','=','faculties.id' )
+           ->join('notice_types',  'academic_notices.notice_type_id','=','notice_types.id' )
+           ->select('academic_notices.*','course_names.course_name','notice_types.notice_type_name','academic_sessions.academic_session','departments.name as department_name','faculties.name as faculty_name')
+           ->where('notice_types.id',$id)
+           ->orderBy('academic_notices.id','DESC')
+           ->paginate(10);
+
+        return view('backend.pages.notice-list',$data);
+
+    }
+
+
+
     public  function ViewDepartment(){
         $data = array();
-        $data['departments'] = Department::all();
+       $data['academic_sessions'] = AcademicSession::all();
+       $data['courses']  =CourseName::all();
+       $data['departments'] = Department::all();
+       $data['faculties'] = Faculty::all();
+       $data['notice_types'] = NoticeType::all();
+       $data['roles'] = Role::all();
+      
+      $data['departments'] = Department::all();
 
         return view('backend.pages.add_depart_view',$data);
     }
 
     public  function AddDepartment(Request $request){
 
+
         $validator = Validator::make($request->all(), [
             'name'=> 'required',
             'dept_full_name' => 'required',
+            'faculty_id' => 'required',
             'description' => 'required',
             'dept_image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -253,6 +313,7 @@ class NoticeBoardController extends Controller
         $data = [
             'name' => $request['name'],
             'dept_full_name' => $request['dept_full_name'],
+            'faculty_id' => $request['faculty_id'],
             'description' => $request['description'],
             'dept_image' => $dept_image_save,
         ];
